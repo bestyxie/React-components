@@ -72,7 +72,7 @@ class Item extends React.Component<ItemProps> {
   render() {
     const { connectDragSource, classNames, isDragging, connectDropTarget } = this.props
     return connectDropTarget(connectDragSource(
-      <span className={cls('item', classNames, { 'dragging': isDragging })}>{this.props.text}</span>
+      <div className={cls('item', classNames, { 'dragging': isDragging })}>{this.props.text}</div>
     ))
   }
 }

@@ -33,10 +33,11 @@ class Container extends React.Component {
   moveItem = (dragIndex, hoverIndex) => {
     const { items } = this.state
     let dragItem = items[dragIndex]
-    items[dragIndex] = items[hoverIndex]
-    items[hoverIndex] = dragItem
+    let hoverItem = items.splice(hoverIndex, 1, dragItem)[0]
+    items.splice(dragIndex, 1)
+    items.splice(hoverIndex > dragIndex ? hoverIndex : hoverIndex + 1, 0, hoverItem)
 
-    this.setState({ items })
+    this.setState({ items: [...items] })
   }
 
   render(): React.ReactNode {

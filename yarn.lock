@@ -4545,7 +4545,7 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dnd-core@14.0.0:
+dnd-core@14.0.0, dnd-core@^14.0.0:
   version "14.0.0"
   resolved "https://registry.npm.taobao.org/dnd-core/download/dnd-core-14.0.0.tgz#973ab3470d0a9ac5a0fa9021c4feba93ad12347d"
   integrity sha1-lzqzRw0KmsWg+pAhxP66k60SNH0=

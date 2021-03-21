@@ -43,10 +43,10 @@ class App extends React.Component {
           <Switch>
             {
               routes.map(r => {
-                const Component = r.component
+                const PageComponent = r.component
                 return (
                   <Route key={r.path} path={r.path}>
-                    <Component />
+                    <PageComponent />
                   </Route>
                 )
               })

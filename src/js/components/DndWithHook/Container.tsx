@@ -9,15 +9,15 @@ interface itemShap {
 const defaultItems: itemShap[] = [
   {
     text: 'a',
-    id: 1,
+    id: 11,
   },
   {
     text: 'b',
-    id: 2,
+    id: 12,
   },
   {
     text: 'c',
-    id: 3,
+    id: 13,
   }
 ]
 
@@ -27,12 +27,20 @@ export default function Container(): React.ReactElement {
   const moveItem = useCallback(
     (dragIndex, hoverIndex) => {
       let dragItem = items[dragIndex]
-      items.splice(dragIndex, 1, items[hoverIndex])
-      items.splice(hoverIndex, 1, dragItem)
+
+      if (hoverIndex > dragIndex) {
+        let hoverItem = items.splice(hoverIndex, 1, dragItem)[0]
+        items.splice(dragIndex, 1)
+        items.splice(hoverIndex - 1, 0, hoverItem)
+      } else {
+        let hoverItem = items.splice(hoverIndex, 1, dragItem)[0]
+        items.splice(dragIndex, 1)
+        items.splice(hoverIndex + 1, 0, hoverItem)
+      }
 
       setItems([...items])
     },
-    [items]
+    [items, setItems]
   )
 
   return (
