@@ -21,6 +21,11 @@ const routes: RouteShape[] = [
     name: 'React DnD with HOOK',
     path: '/dnd-hook',
     component: React.lazy(() => import('./js/components/DndWithHook'))
+  },
+  {
+    name: 'brick',
+    path: '/brick',
+    component: React.lazy(() => import('./js/components/Brick'))
   }
 ]
 
