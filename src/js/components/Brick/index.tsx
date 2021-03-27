@@ -6,33 +6,46 @@ import { bricksItemShape } from './types'
 
 const TYPE = 'card'
 
-interface DragItem {
+interface Item {
   component: bricksItemShape
+  parent: bricksItemShape[]
+  index: number
 }
 
 interface BrickWrapperProps {
   component: bricksItemShape
+  parent: bricksItemShape[]
+  index: number
 }
 
-const BrickWrapper: React.FC<BrickWrapperProps> = ({ component }): React.ReactElement => {
+const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index }): React.ReactElement => {
   const ref = useRef<HTMLDivElement>(null)
   const [{ isDragging }, drag] = useDrag({
     type: TYPE,
-    item: (): DragItem => ({
-      component: component
+    item: (): Item => ({
+      component: component,
+      parent: parent,
+      index: index,
     }),
     collect: (monitor: DragSourceMonitor) => ({
       isDragging: monitor.isDragging()
     }),
-  })
+  }, [component, parent, index])
 
   const [{ handleId }, drop] = useDrop({
     accept: TYPE,
     collect: (monitor: DropTargetMonitor) => ({
       handleId: monitor.getHandlerId(),
     }),
-    hover: (item: DragItem, monitor: DropTargetMonitor) => {
-      console.log(item)
+    hover: (item: Item, monitor: DropTargetMonitor) => {
+      const {index: dragIndex, parent: dragParent} = item
+      const {index: hoverIndex, parent: hoverParent} = monitor.getItem<Item>()
+      if (dragParent !== hoverParent) {
+        const dragItem = dragParent.splice(dragIndex, 1)[0]
+        hoverParent.push(dragItem)
+      }
+      console.log('dragParent', dragParent)
+      console.log('hoverParent', hoverParent)
     }
   })
 
@@ -46,7 +59,7 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component }): React.ReactEl
         component.component.render({
           children: component.children && component.children.map((child, index) => {
             return (
-              <BrickWrapper component={child} key={index} />
+              <BrickWrapper component={child} parent={component.children} index={index} key={index} />
             )
           })
         })
@@ -60,7 +73,7 @@ export default function Brick() {
     <div>
       <DndProvider backend={HTML5Backend}>
         {bricks.map((b, index) => (
-          <BrickWrapper component={b} key={index} />
+          <BrickWrapper component={b} parent={bricks} index={index} key={index} />
         ))}
       </DndProvider>
     </div>
