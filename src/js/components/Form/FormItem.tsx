@@ -18,7 +18,7 @@ const FormItem: React.FC<FormItemProps> = ({name, label, onChange, onValuesChang
         React.Children.only(children as React.ReactElement),
         {
           onChange: handleChange,
-          value: values[name] || '',
+          value: values ? values[name] || '' : '',
         }
       )}
     </div>
