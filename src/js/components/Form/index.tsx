@@ -16,7 +16,7 @@ const App: React.FC = (props) => {
   return (
     <div>
       <h1>This a custom Form component</h1>
-      <Form onValuesChange={values => console.log(values)} ref={ref}>
+      <Form onValuesChange={values => console.log('onValuesChange', values)} ref={ref}>
         <FormItem name='firstname' label="名">
           <input />
         </FormItem>
