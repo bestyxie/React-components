@@ -1,8 +1,8 @@
-import Enzyme, {mount, ShallowWrapper} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import Enzyme, {mount, ShallowWrapper, ReactWrapper} from 'enzyme'
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import Form from '../Form'
 import FormItem from '../FormItem'
-import React from 'react'
+import React, {useRef} from 'react'
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -12,8 +12,8 @@ describe('<Form />', () => {
   test('getValues', () => {
     const defaultVals = {val: 'abc'}
     const mockOnValuesChange = jest.fn()
-    const wrapper = mount<ShallowWrapper>(
-      (<Form onValuesChange={mockOnValuesChange}>
+    const wrapper = mount<ReactWrapper>(
+      (<Form onValuesChange={mockOnValuesChange} ref={ref}>
         <FormItem label="labelName" name='val'>
           <input />
         </FormItem>
