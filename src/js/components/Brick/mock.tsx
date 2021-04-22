@@ -17,10 +17,11 @@ const container: BrickShape = {
 const box: BrickShape = {
   name: 'box',
   id: 2,
-  render: ({ children }) => {
+  render: ({ children, text }) => {
     return (
       <div style={{ border: '1px solid #000', margin: '10px' }}>
         box
+        {text}
         {children}
       </div>
     )

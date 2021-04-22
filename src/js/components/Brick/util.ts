@@ -1,4 +1,5 @@
 export const switchItem = <T extends Array<any>>(arr: T, from: number, to: number): T => {
+  if (!arr || arr.length === 0) return
   let targetItem = arr[from]
 
   if (to > from) {

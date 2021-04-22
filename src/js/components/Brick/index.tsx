@@ -4,6 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import bricks from './mock'
 import { bricksItemShape } from './types'
 import { switchItem } from './util'
+import _ from 'lodash'
 
 const TYPE = 'card'
 
@@ -43,20 +44,24 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index, m
       handleId: monitor.getHandlerId(),
       isOverCurrent: monitor.isOver({ shallow: true })
     }),
-    hover: (item: Item, monitor: DropTargetMonitor) => {
+    hover: _.debounce((item: Item, monitor: DropTargetMonitor) => {
       if (!monitor.isOver({ shallow: true })) return
       const { index: dragIndex, parent: dragParent } = item
+      console.log('dragParent === parent', dragParent === parent)
       if (dragParent === parent) {
+        console.log('dragIndex', index)
+        console.log('parent equals')
         moveItem(dragParent, dragIndex, parent, index)
         monitor.getItem<Item>().index = index
         return
       }
+      console.log('parent not equals')
       moveItem(dragParent, dragIndex, parent)
 
       const draggingItem = monitor.getItem<Item>()
       draggingItem.index = parent.length
       draggingItem.parent = parent
-    }
+    }, 100)
   }, [parent, moveItem])
 
   useEffect(() => {
@@ -72,6 +77,7 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index, m
     <div ref={ref} style={style} data-handler-id={handleId}>
       {
         component.component.render({
+          text: index + '',
           children: component.children && component.children.map((child, index) => {
             return (
               <BrickWrapper
@@ -93,8 +99,11 @@ export default function Brick() {
   const [brickList, setBrickList] = useState(bricks)
   const moveItem = useCallback((dragParent, dragIndex, hoverParent, hoverIndex) => {
     if (!dragParent.length) return
-    if (dragParent === hoverParent) {
-
+    if (dragParent === hoverParent && Array.isArray(dragParent)) {
+      console.log('Brick dragIndex', dragIndex)
+      console.log('dragParent: ', dragParent)
+      debugger
+      switchItem(dragParent, dragIndex, hoverIndex)
     } else {
       const dragItem = dragParent.splice(dragIndex, 1)[0]
       hoverParent.push(dragItem)
@@ -102,6 +111,7 @@ export default function Brick() {
     console.log(brickList)
     setBrickList([...brickList])
   }, [brickList, setBrickList])
+
   return (
     <div>
       <DndProvider backend={HTML5Backend}>

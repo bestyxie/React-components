@@ -1,4 +1,4 @@
-import Enzyme, {shallow, ShallowWrapper} from 'enzyme'
+import Enzyme, { shallow, ShallowWrapper } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import FormItem from '../FormItem'
 import React from 'react'
@@ -9,7 +9,7 @@ Enzyme.configure({
 
 describe('<FormItem />', () => {
   test('base render', () => {
-    const labelName="labelName"
+    const labelName = "labelName"
     const wrapper = shallow<ShallowWrapper>(
       (<FormItem label={labelName} name="test">
         <input />

@@ -26,7 +26,7 @@ interface FormProps {
 interface FormItemProps {
   label?: string | React.ReactNode;
   onChange?: (value: ValueType) => void;
-  children: React.ReactNode;
+  children: React.ReactElement;
   name: string;
   value?: ValueType;
   onValuesChange?: onValuesChange;

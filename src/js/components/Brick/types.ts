@@ -2,6 +2,7 @@ import React from 'react'
 
 interface propsShap {
   children?: React.ReactElement[]
+  text?: string
 }
 
 export interface BrickShape {
