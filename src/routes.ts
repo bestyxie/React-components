@@ -26,6 +26,11 @@ const routes: RouteShape[] = [
     name: 'brick',
     path: '/brick',
     component: React.lazy(() => import('./js/components/Brick'))
+  },
+  {
+    name: 'ReactMemo',
+    path: '/react-memo',
+    component: React.lazy(() => import('./js/components/ReactMemo'))
   }
 ]
 
