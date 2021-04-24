@@ -4,6 +4,7 @@ import Foo from '../Foo'
 
 describe('Test Foo with shallow', function () {
   it('should not mount App inner Foo but children prop', function () {
+
     const mockOnClick = jest.fn(count => count + 1)
     const wrapper = shallow(
       <Foo onBtnClick={mockOnClick}>
