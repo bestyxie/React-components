@@ -1,11 +1,6 @@
-import Enzyme, { shallow, ShallowWrapper } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow, ShallowWrapper } from 'enzyme'
 import FormItem from '../FormItem'
 import React from 'react'
-
-Enzyme.configure({
-  adapter: new Adapter()
-})
 
 describe('<FormItem />', () => {
   test('base render', () => {
