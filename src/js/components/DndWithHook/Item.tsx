@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useDrag, useDrop, DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import cls from 'classnames'
 import { XYCoord } from 'dnd-core'
-import '../DndWithHOC/Item.scss'
+import '../DndWithHOC/item.scss'
 
 const TYPE = 'item'
 

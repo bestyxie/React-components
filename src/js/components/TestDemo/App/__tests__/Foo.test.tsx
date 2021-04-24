@@ -1,14 +1,10 @@
 import React from 'react'
-import Enzyme, { shallow, mount, render } from 'enzyme'
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
+import { shallow, mount, render } from 'enzyme'
 import Foo from '../Foo'
-
-Enzyme.configure({
-  adapter: new Adapter()
-})
 
 describe('Test Foo with shallow', function () {
   it('should not mount App inner Foo but children prop', function () {
+
     const mockOnClick = jest.fn(count => count + 1)
     const wrapper = shallow(
       <Foo onBtnClick={mockOnClick}>

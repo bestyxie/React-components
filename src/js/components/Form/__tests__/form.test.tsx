@@ -1,13 +1,8 @@
-import Enzyme, { mount, ShallowWrapper, ReactWrapper } from 'enzyme'
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
+import { mount, ReactWrapper } from 'enzyme'
 import Form from '../Form'
 import FormItem from '../FormItem'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-
-Enzyme.configure({
-  adapter: new Adapter()
-})
 
 describe('<Form />', () => {
   test('getValues', () => {
