@@ -45,23 +45,25 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index, m
       isOverCurrent: monitor.isOver({ shallow: true })
     }),
     hover: _.debounce((item: Item, monitor: DropTargetMonitor) => {
-      if (!monitor.isOver({ shallow: true })) return
+      if (!ref.current || !monitor.isOver({ shallow: true })) return
+
+      const hoverIndex = index
+      const hoverParent = parent
       const { index: dragIndex, parent: dragParent } = item
-      console.log('dragParent === parent', dragParent === parent)
-      if (dragParent === parent) {
-        console.log('dragIndex', index)
-        console.log('parent equals')
-        moveItem(dragParent, dragIndex, parent, index)
-        monitor.getItem<Item>().index = index
+
+      if (dragParent === hoverParent && dragIndex === hoverIndex) return
+
+      if (dragParent === hoverParent) {
+        moveItem(dragParent, dragIndex, hoverParent, hoverIndex)
+        item.index = hoverIndex
         return
       }
-      console.log('parent not equals')
-      moveItem(dragParent, dragIndex, parent)
 
-      const draggingItem = monitor.getItem<Item>()
-      draggingItem.index = parent.length
-      draggingItem.parent = parent
-    }, 100)
+      // moveItem(dragParent, dragIndex, parent)
+
+      // item.index = hoverParent.length - 1
+      // item.parent = hoverParent
+    }, 10)
   }, [parent, moveItem])
 
   useEffect(() => {
@@ -69,7 +71,7 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index, m
   }, [])
 
   const style = useMemo(() => ({
-    opacity: isDragging ? 0 : 1,
+    opacity: isDragging ? 0.5 : 1,
     background: isOverCurrent ? 'green' : 'white'
   }), [isDragging, isOverCurrent])
 
@@ -77,7 +79,7 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index, m
     <div ref={ref} style={style} data-handler-id={handleId}>
       {
         component.component.render({
-          text: index + '',
+          text: component.text,
           children: component.children && component.children.map((child, index) => {
             return (
               <BrickWrapper
@@ -100,15 +102,11 @@ export default function Brick() {
   const moveItem = useCallback((dragParent, dragIndex, hoverParent, hoverIndex) => {
     if (!dragParent.length) return
     if (dragParent === hoverParent && Array.isArray(dragParent)) {
-      console.log('Brick dragIndex', dragIndex)
-      console.log('dragParent: ', dragParent)
-      debugger
       switchItem(dragParent, dragIndex, hoverIndex)
     } else {
       const dragItem = dragParent.splice(dragIndex, 1)[0]
       hoverParent.push(dragItem)
     }
-    console.log(brickList)
     setBrickList([...brickList])
   }, [brickList, setBrickList])
 

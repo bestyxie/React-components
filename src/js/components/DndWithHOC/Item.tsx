@@ -12,7 +12,7 @@ import {
   ConnectDropTarget
 } from 'react-dnd'
 import cls from 'classnames'
-import './item.scss'
+import './Item.scss'
 
 interface ItemDragObject {
   index: number

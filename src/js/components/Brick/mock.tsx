@@ -31,12 +31,14 @@ const box: BrickShape = {
 const bricks: bricksItemShape[] = [
   {
     component: container,
+    text: 'a',
     children: [
-      { component: box },
-      { component: box },
+      { component: box, text: 'b' },
+      { component: box, text: 'c' },
       {
         component: box,
-        children: [{ component: box }],
+        text: 'd',
+        children: [{ component: box, text: 'e' }],
       }
     ]
   },

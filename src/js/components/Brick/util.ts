@@ -9,7 +9,7 @@ export const switchItem = <T extends Array<any>>(arr: T, from: number, to: numbe
   } else {
     let hoverItem = arr.splice(to, 1, targetItem)[0]
     arr.splice(from, 1)
-    arr.splice(from + 1, 0, hoverItem)
+    arr.splice(to + 1, 0, hoverItem)
   }
   return arr
 }

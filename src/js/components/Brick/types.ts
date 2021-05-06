@@ -13,5 +13,6 @@ export interface BrickShape {
 
 export interface bricksItemShape {
   component: BrickShape,
-  children?: bricksItemShape[],
+  children?: bricksItemShape[]
+  text?: string
 }

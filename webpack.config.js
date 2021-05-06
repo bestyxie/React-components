@@ -17,7 +17,7 @@ module.exports = (env, args) => {
       writeToDisk: true
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '']
+      extensions: ['.ts', '.tsx', '.js']
     },
     module: {
       rules: [
