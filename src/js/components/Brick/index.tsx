@@ -53,6 +53,10 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index, m
 
       if (dragParent === hoverParent && dragIndex === hoverIndex) return
 
+      const hoverBoundingRect = ref.current?.getBoundingClientRect()
+
+      const clientOffset = monitor.getClientOffset()
+
       if (dragParent === hoverParent) {
         moveItem(dragParent, dragIndex, hoverParent, hoverIndex)
         item.index = hoverIndex
@@ -86,7 +90,7 @@ const BrickWrapper: React.FC<BrickWrapperProps> = ({ component, parent, index, m
                 component={child}
                 parent={component.children}
                 index={index}
-                key={index}
+                key={child.id}
                 moveItem={moveItem}
               />
             )
@@ -118,7 +122,7 @@ export default function Brick() {
             component={b}
             parent={brickList}
             index={index}
-            key={index}
+            key={b.id}
             moveItem={moveItem}
           />
         ))}

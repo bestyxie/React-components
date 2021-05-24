@@ -15,4 +15,5 @@ export interface bricksItemShape {
   component: BrickShape,
   children?: bricksItemShape[]
   text?: string
+  id: number
 }

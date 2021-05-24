@@ -32,13 +32,15 @@ const bricks: bricksItemShape[] = [
   {
     component: container,
     text: 'a',
+    id: 1,
     children: [
-      { component: box, text: 'b' },
-      { component: box, text: 'c' },
+      { component: box, text: 'b', id: 2 },
+      { component: box, text: 'c', id: 3 },
       {
         component: box,
         text: 'd',
-        children: [{ component: box, text: 'e' }],
+        id: 4,
+        children: [{ component: box, text: 'e', id: 5 }],
       }
     ]
   },
